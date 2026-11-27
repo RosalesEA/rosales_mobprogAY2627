@@ -2,7 +2,7 @@
 ### INF247
 ### 2024-1003520
 
-Laboratory 1: Facebook News Feed Enhancement
+Laboratory 2: Facebook News Feed Enhancement
 
 Posts and notifications. Instead of manually creating NewsFeedCard and Notification widget instances in a Column, I have described their structure using PostData and NotificationData classes and put them into lists (10 posts in postList and 20 notifications in notificationList). The notifications only list people who liked a post; comment notifications are left for the next part. Now the screens use ListView.builder and ListView.separated and display only those rows that are currently visible and auto-scroll them. Consequently, the addition of a new post or notification consists in appending another item in a list, without any change in the widget code.
 
