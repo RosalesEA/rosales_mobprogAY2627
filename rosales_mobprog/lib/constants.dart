@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-const Color FB_PRIMARY = Color(0xFF0167f8);
-const Color FB_SECONDARY = Color(0xFF003bb3);
-const Color FB_DARK_PRIMARY = Color(0xFF021452);
-const Color FB_LIGHT_PRIMARY = Color(0xFF74b7fb);
-const Color FB_TEXT_COLOR_WHITE = Color(0xFFe0f0fd);
+const Color appPrimary = Color(0xFF2E3A8C);
+const Color appSecondary = Color(0xFFF4B400);
+const Color appDarkPrimary = Color(0xFF14193F);
+const Color appLightPrimary = Color(0xFF9FA8E8);
+const Color appTextColorWhite = Color(0xFFF3F4FF);
+const Color appBackground = Color(0xFFF5F6FC);
+
+const String appName = 'EPBEH';

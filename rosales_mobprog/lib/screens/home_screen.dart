@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants.dart';
 import '../screens/newsfeed_screen.dart';
+import '../screens/notification_screen.dart';
+import '../screens/profile_screen.dart';
 import '../widgets/custom_font.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,16 +17,24 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
 
+  static const List<String> _titles = [appName, 'Notifications', 'Profile'];
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shadowColor: FB_TEXT_COLOR_WHITE,
+        shadowColor: appTextColorWhite,
         elevation: 2,
         title: CustomFont(
-          text: 'facebook',
+          text: _titles[_selectedIndex],
           fontSize: ScreenUtil().setSp(25),
-          color: FB_PRIMARY,
+          color: _selectedIndex == 0 ? appPrimary : Colors.black,
           fontFamily: 'Klavika',
         ),
       ),
@@ -32,6 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         children: const <Widget>[
           NewsFeedScreen(),
+          NotificationScreen(),
+          ProfileScreen(),
         ],
         onPageChanged: (page) {
           setState(() {
@@ -52,8 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.notifications),
             label: 'Notifications',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
-        selectedItemColor: FB_PRIMARY,
+        selectedItemColor: appPrimary,
         currentIndex: _selectedIndex,
       ),
     );

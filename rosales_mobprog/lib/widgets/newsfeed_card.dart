@@ -12,7 +12,7 @@ class NewsFeedCard extends StatefulWidget {
   final String postContent;
   final String date;
   final int numOfLikes;
-  final bool hasImage;
+  final bool hasPlaceholder;
   final String? postImage;
 
   const NewsFeedCard({
@@ -23,7 +23,7 @@ class NewsFeedCard extends StatefulWidget {
     required this.postContent,
     required this.date,
     this.numOfLikes = 0,
-    this.hasImage = false,
+    this.hasPlaceholder = false,
     this.postImage,
   });
 
@@ -106,18 +106,24 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
               height: ScreenUtil().setHeight(10),
             ),
 
-            widget.hasImage && widget.postImage != null
-                ? Container(
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(250),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(widget.postImage!),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
+            if (widget.postImage != null)
+              Container(
+                width: double.infinity,
+                height: ScreenUtil().setHeight(250),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                    image: AssetImage(widget.postImage!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+            else if (widget.hasPlaceholder)
+              SizedBox(
+                width: double.infinity,
+                height: ScreenUtil().setHeight(250),
+                child: const Placeholder(),
+              ),
 
             SizedBox(
               height: ScreenUtil().setHeight(10),
@@ -127,7 +133,7 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
               children: [
                 Icon(
                   Icons.thumb_up,
-                  color: liked ? FB_PRIMARY : Colors.grey,
+                  color: liked ? appPrimary : Colors.grey,
                   size: 18,
                 ),
                 SizedBox(

@@ -4,14 +4,24 @@
 
 Laboratory 1: Facebook News Feed Enhancement
 
-These enhancements made the Facebook News Feed application better in that they added functionality to the NewsFeedCard widget utilizing dynamic data and reusable widgets.
+Posts and notifications. Instead of manually creating NewsFeedCard and Notification widget instances in a Column, I have described their structure using PostData and NotificationData classes and put them into lists (10 posts in postList and 20 notifications in notificationList). The notifications only list people who liked a post; comment notifications are left for the next part. Now the screens use ListView.builder and ListView.separated and display only those rows that are currently visible and auto-scroll them. Consequently, the addition of a new post or notification consists in appending another item in a list, without any change in the widget code.
 
-Firstly, this included adding images to posts. It was done through the use of the AssetImage and Conditional Rendering. This enables each post to display different images based on the data passed to the NewsFeedCard widget. Posts with no images are successfully displayed by using the conditional widget.
+Enhancement 1 (dynamic post). Now each post contains its own number of likes (numOfLikes), its own date, and the hasPlaceholder attribute. If hasPlaceholder is true, the card displays a Placeholder box, otherwise – nothing. A post can also be created using a real postImage, in which case it is displayed instead of the placeholder. Like button works in the same way on every card due to the individual liked state for each card.
 
-Secondly, instead of the default profile icons, the use of actual profile pictures using CircleAvatar was utilized. Profile pictures are now displayed dynamically using widget parameters, which enable different users to use unique profile pictures. The comment box was also enhanced to use the current user's profile picture, just like in social media websites.
+Enhancement 2 (dynamic AppBar). HomeScreen holds a list of titles in the same order as the pages and the navigation items, and the AppBar's title takes values from this list depending on the selected index. The title is being updated whenever the user clicks a tab or swipes the PageView, since the index is being updated using onPageChanged method.
 
-Thirdly, to make the app interactive and more appealing to users, all the functionalities of like, comment, and share buttons were converted into reusable widget components using PostActionButton widget. This was achieved in order to avoid repeating the code.
+Enhancement 3 (more BottomNavigationBarItem). I have introduced Profile item and ProfileScreen, hence the navigation bar contains Home, Notifications, and Profile items with corresponding pages in the PageView.
 
-Finally, state management of the Like button functionality was included. This enables users to interact with the Like button and switch from Like to Liked status and dynamically update the number of likes on the post.
+Enhancement 4 (app name). The app is now named EPBEH. It contains the name stored once as appName in constants.dart and used by the MaterialApp title, AppBar, and profile screen.
 
-As a result of these enhancements, the application is made more dynamic and interactive compared to before and looks more like a real social media website. Through these enhancements, important concepts of the Flutter Development were illustrated including reusability and maintainability.
+Enhancement 5 (color palette). I have replaced Facebook blues with the indigo and gold color palette in constants.dart (appPrimary, appSecondary, appDarkPrimary, appLightPrimary, appTextColorWhite, appBackground). At the same time, I have renamed the FB_ constants to camelCase names that follow Dart's naming style and match the new app name, and applied the palette to the MaterialApp theme.
+
+Challenges and how I solved them:
+
+1. Name conflict. There already exists a class named Notification in Flutter, therefore my Notification widget was conflicting with it. To resolve the issue, I imported it using a prefix (import '../widgets/notification.dart' as notif;) and used notif.Notification in the screen.
+
+2. Overflow with 20 notifications. A Column cannot scroll, hence the overflow of 20 items in the screen. Therefore, I used ListView.separated, which can scroll and draw the Divider between items.
+
+3. The navigation bar and pages are not consistent. In Lab 1, the navigation bar contained two items, whereas the PageView consisted of only one page, so clicking Notifications marked the tab but left the feed on the screen. The issue was solved by introducing notification and profile pages so that the number of pages matched the number of items.
+
+4. Placeholder vs image. I have renamed hasImage to hasPlaceholder to adhere to the lab task but I still needed to use the real image as in Lab 1. So, I made postImage optional: if it is provided, it is displayed; otherwise, the placeholder is displayed only if hasPlaceholder is true.
